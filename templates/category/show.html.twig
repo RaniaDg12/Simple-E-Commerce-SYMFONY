@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>{{ category.title }} Products</h1>
+
+    {% for product in products %}
+        <a href="{{ path('site_show', {'id': product.id}) }}" class="btn btn-primary btn-lg">{{ product.title }}</a>
+    {% endfor %}
+    <br>
+    <ul class="pagination">
+        <li class="page-item active">
+            <a class="page-link" href="{{ path('app_category') }}">&laquo;</a>
+        </li>
+    </ul>
+{% endblock %}

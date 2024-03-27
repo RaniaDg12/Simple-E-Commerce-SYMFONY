@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formProduct 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+
+<h1>
+    {% if editMode %}
+          Modify a product !
+        {% else %}
+          Create a new product !
+        {% endif %}
+    </h1>
+    
+    {{ form_start(formProduct) }}
+
+    {{ form_row(formProduct.title, {'attr' : {'placeholder': "Product title"}}) }}
+    {{ form_row(formProduct.category) }}
+    {{ form_row(formProduct.description, {'attr' : {'placeholder': "Product description"}}) }}
+    {{ form_row(formProduct.price, {'attr' : {'placeholder': "Product price"}}) }}
+    {{ form_row(formProduct.image, {'attr' : {'placeholder': "Image URL"}}) }}
+    
+    <br>
+    <button type="submit" class="btn btn-success">
+        {% if editMode %}
+          Save modifications
+        {% else %}
+          Add product
+        {% endif %}
+    </button>
+
+    {{ form_end(formProduct) }}
+
+{% endblock %}

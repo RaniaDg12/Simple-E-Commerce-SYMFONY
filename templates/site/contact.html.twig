@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formContact 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+
+<h1>Contact us NOW !</h1>
+
+    {{ form_start(formContact) }}
+
+    {{ form_row(formContact.name, {'attr' : {'placeholder': "Full name"}}) }}
+    {{ form_row(formContact.mail, {'attr' : {'placeholder': "Mail adress"}}) }}
+    {{ form_row(formContact.content, {'attr' : {'placeholder': "Message content"}}) }}
+    
+    <button type="submit" class="btn btn-success">Send</button>
+
+    {{ form_end(formContact) }}
+
+    {% for message in app.flashes('notice') %}
+    <div class="flash-notice">
+        {{ message }}
+    </div>
+    {% endfor %}
+
+
+{% endblock %}

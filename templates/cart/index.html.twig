@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier{% endblock %}
+
+{% block body %}
+
+<div class="bg-light p-3">
+    <h1>Your Cart</h1>
+</div>
+<br>
+{% if items | length>0   %}
+    <table>
+        <thead>
+            <tr>
+                <th>Product title</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+        </thead>
+        
+        <tbody >
+            {% for item in items %}
+                <tr>
+                    <td>{{ item.product.title}}</td>
+                    <td>{{ item.product.price}}</td>
+                    <td>{{ item.quantity}}</td>
+                    <td>{{ item.product.price * item.quantity}}</td>
+                    <td>
+                        <a href="{{ path('panier_remove', {'id': item.product.id}) }}" class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="text-right">Total: </td>
+                <td>{{ total}}</td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+    
+{% else %}
+<p>It's empty! </p>
+{% endif %}
+
+{% endblock %}

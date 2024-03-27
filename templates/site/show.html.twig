@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<article>
+    <h2>{{ product.title }}</h2>
+
+        <div class="metadata">Created on {{ product.createdAt | date('d/m/y') }} 
+          à {{ product.createdAt | date('H:i') }} in the {{ product.category.title }}  category.</div>
+
+        <div class="content">
+            <img src="{{ product.image }}" alt="" width="300" height="200">
+            <p class="text-primary">{{ product.price }} TND</p>
+            {{ product.description | raw }}
+        </div>
+
+</article>
+
+
+<table class="table table-hover">
+  <h1>{{ product.comments | length }} comments: </h1>
+  {% for comment in product.comments %}
+  <thead>
+    <tr>
+      <th scope="col">Author</th>
+      <th scope="col">Content</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="table-secondary">
+      <th scope="row">{{comment.author}} 
+        (<small>{{comment.createdAt| date('H:i') }}</small>) </th>
+      <td>{{ comment.content| raw}}</td>
+    </tr>
+  </tbody>
+  {% endfor %}
+  
+
+  {% if app.user %}
+
+  {{ form_start(commentForm) }}
+
+  {{ form_row(commentForm.author, {'attr' : {'placeholder': "Your name"}}) }}
+  {{ form_row(commentForm.content, {'attr' : {'placeholder': "Your comment"}}) }}
+  
+  <button type="submit" class="btn btn-success">Send</button>
+
+  {{ form_end(commentForm) }}
+
+  {% else %}
+  <h2>You cannot comment if you are not logged in !</h2>
+  <a href="{{ path('security_login') }}" class="btn btn-primary">Login</a>
+  {% endif %}
+
+</table>
+
+
+
+{% endblock %} 
